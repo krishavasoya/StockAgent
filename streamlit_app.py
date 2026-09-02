@@ -9,10 +9,6 @@ st.set_page_config(
     layout="wide"
 )
 
-# symbol = st.text_input(
-#     "Enter Stock Symbol",
-#     placeholder="Enter Stock symbol"
-# )
 companies={
     "Apple":"AAPL",
     "Microsoft":"MSFT",
