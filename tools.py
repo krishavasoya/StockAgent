@@ -1,4 +1,3 @@
-#get_stock_price(),fundamentals,news
 from langchain_core.tools import tool
 import yfinance as yf    #import yfinance library to get stock data
 import requests  #import requests library to get news data used to call api
@@ -10,15 +9,13 @@ FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")  #get FINNHUB_API_KEY from enviro
 
 @tool
 def get_stock_price(symbol: str):  #function for getting stock price of a given symbol
-    """get current stock price"""
+    """get current stock price"""  #helps sgent to understand when to use this tool
     stock=yf.Ticker(symbol)  #make a stock object using the symbol provided
-
-    data=stock.history(period="1d")  #dwnld histroy of stock for 1 day
+    current_price=stock.fast_info.get("lastPrice")  #get current price of the stock
     
-    if data.empty:
+    if current_price is None:  #check if current price is None
         return{"error":"Invalid symbol or no data available"}
     
-    current_price=data['Close'].iloc[-1] #select last closing price..iloc means select row by index,-1 means last row, 'Close' is the column name for closing price
 
     return{
         "symbol": symbol,
@@ -75,3 +72,4 @@ def get_news(symbol: str):  #function for getting news of a given symbol
         headlines.append(article['headline'])  #append the headline of each article to the list
 
     return headlines  #return the list of headlines
+
