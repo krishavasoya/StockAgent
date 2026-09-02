@@ -1,0 +1,10 @@
+streamlit
+langchain
+langchain-core
+langchain-groq
+yfinance
+requests
+python-dotenv
+fastapi
+uvicorn
+pandas
